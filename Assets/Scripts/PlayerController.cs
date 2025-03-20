@@ -48,11 +48,11 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 0), tiltSpeed * Time.deltaTime);
         }
 
-        if (Input.GetMouseButton(1)) // Right-click
-            movement += Vector3.back * moveSpeed * Time.deltaTime;
+        // if (Input.GetMouseButton(1)) // Right-click
+        //     movement += Vector3.back * moveSpeed * Time.deltaTime;
 
-        if (Input.GetMouseButton(0)) // Left-click
-            movement += Vector3.forward * moveSpeed * Time.deltaTime;
+        // if (Input.GetMouseButton(0)) // Left-click
+        //     movement += Vector3.forward * moveSpeed * Time.deltaTime;
 
         transform.Translate(movement, Space.World);
 

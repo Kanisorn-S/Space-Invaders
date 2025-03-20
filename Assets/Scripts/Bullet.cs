@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class BulletMove : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public float bulletSpeed = 10f;
     private float maxZ = 100f;
+    public int damage = 50;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
