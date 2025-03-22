@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
             movement += Vector3.left * moveSpeed * Time.deltaTime;
             float zTilt = transform.eulerAngles[2];
             if (zTilt < maxTiltAngle || zTilt > (360 - maxTiltAngle - offsetTilt)) {
-                Debug.Log("Tilting left");
                 transform.Rotate(Vector3.forward, tiltSpeed * Time.deltaTime);
             }
         } else if (Input.GetKey(KeyCode.D))
@@ -66,5 +65,6 @@ public class PlayerController : MonoBehaviour
     void ShootBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Debug.Log(bullet.layer);
     }
 }
