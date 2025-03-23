@@ -7,6 +7,10 @@ public class AlienBase : MonoBehaviour
     public int score = 10;
     public float speed = 1f; 
     public Vector3 spawnPosition; 
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public float fireRate = 5f;
+    private float timer = 0f;
     // Reference to Main Logic
     public LogicScript logic; 
 
@@ -24,12 +28,30 @@ public class AlienBase : MonoBehaviour
     {
       // Call the move function
       move();
+      // Call the shoot function
+        if (timer > fireRate)
+        {
+            shoot();
+            timer = 0f;
+        } else {
+            timer += Time.deltaTime;
+        }
     }
 
     public virtual void move()
     {
         // Move the alien
         transform.Translate(Vector3.back * speed * Time.deltaTime);
+    }
+
+    public virtual void shoot()
+    {
+        // Instantiate a bullet
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        // Get the bullet's script
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        // Set the bullet's damage value
+        bulletScript.damage = 10;
     }
 
     void OnCollisionEnter(Collision collision)

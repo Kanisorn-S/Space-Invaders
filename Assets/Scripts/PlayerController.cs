@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int health = 100; // Player's health
     public float moveSpeed = 10f;
     public float tiltSpeed = 70f;
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public Transform bulletSpawnPoint; // Position where bullets are spawned
     public int maxTiltAngle = 20;
     public int offsetTilt = 5;
+    public LogicScript logic; // Reference to the LogicScript
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); // Find the LogicScript
     }
 
     // Update is called once per frame
@@ -66,5 +68,29 @@ public class PlayerController : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         Debug.Log(bullet.layer);
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            // Get the damage value from the bullet's script
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                health -= bullet.damage;
+                logic.updatePlayerHealth(false, bullet.damage);
+
+                // Destroy the bullet after collision
+                Destroy(collision.gameObject);
+
+                // Check if health is zero or below
+                if (health <= 0)
+                {
+                    // Destroy the alien
+                    Destroy(gameObject); 
+                }
+            }
+        }
     }
 }
