@@ -7,14 +7,16 @@ public class PlayerController : MonoBehaviour
     public float tiltSpeed = 70f;
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public Transform bulletSpawnPoint; // Position where bullets are spawned
-    public int maxTiltAngle = 20;
+    public int maxTiltAngle = 50;
     public int offsetTilt = 5;
     public LogicScript logic; // Reference to the LogicScript
+    private Quaternion homeRotation;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        homeRotation = transform.rotation; // Store the initial rotation
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); // Find the LogicScript
     }
 
@@ -34,19 +36,20 @@ public class PlayerController : MonoBehaviour
         {
             movement += Vector3.left * moveSpeed * Time.deltaTime;
             float zTilt = transform.eulerAngles[2];
-            if (zTilt < maxTiltAngle || zTilt > (360 - maxTiltAngle - offsetTilt)) {
+            Debug.Log(zTilt);
+            if (zTilt < (maxTiltAngle + 90)) {
                 transform.Rotate(Vector3.forward, tiltSpeed * Time.deltaTime);
             }
         } else if (Input.GetKey(KeyCode.D))
         {
             float zTilt = transform.eulerAngles[2];
             movement += Vector3.right * moveSpeed * Time.deltaTime;
-            if (zTilt > (360 - maxTiltAngle) || zTilt < maxTiltAngle + offsetTilt) {
+            if (zTilt > (90 - maxTiltAngle)) {
                 transform.Rotate(Vector3.forward, -tiltSpeed * Time.deltaTime);
             }
         } else {
             // Smoothly reset tilt to normal orientation
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 0), tiltSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, homeRotation, tiltSpeed * Time.deltaTime);
         }
 
         // if (Input.GetMouseButton(1)) // Right-click
