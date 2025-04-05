@@ -11,12 +11,23 @@ public class PlayerController : MonoBehaviour
     public int offsetTilt = 5;
     public LogicScript logic; // Reference to the LogicScript
     private Quaternion homeRotation;
+    public AudioClip shootSound; // Reference to the shooting sound
+    public AudioSource[] audioSources;
+    private int currentAudioSourceIndex = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         homeRotation = transform.rotation; // Store the initial rotation
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); // Find the LogicScript
+        if (audioSources.Length == 0)
+        {
+            audioSources = new AudioSource[10];
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                audioSources[i] = gameObject.AddComponent<AudioSource>();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -67,6 +78,11 @@ public class PlayerController : MonoBehaviour
 
     void ShootBullet()
     {
+        AudioSource src = audioSources[currentAudioSourceIndex];
+        src.clip = shootSound;
+        src.time = 0.8f;
+        src.Play();
+        currentAudioSourceIndex = (currentAudioSourceIndex + 1) % audioSources.Length;
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
 
