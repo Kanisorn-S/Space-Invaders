@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public LogicScript logic; // Reference to the LogicScript
     private Quaternion homeRotation;
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,7 +35,6 @@ public class PlayerController : MonoBehaviour
         {
             movement += Vector3.left * moveSpeed * Time.deltaTime;
             float zTilt = transform.eulerAngles[2];
-            Debug.Log(zTilt);
             if (zTilt < (maxTiltAngle + 90)) {
                 transform.Rotate(Vector3.forward, tiltSpeed * Time.deltaTime);
             }
@@ -70,7 +68,6 @@ public class PlayerController : MonoBehaviour
     void ShootBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        Debug.Log(bullet.layer);
     }
 
     void OnTriggerEnter(Collider collision)

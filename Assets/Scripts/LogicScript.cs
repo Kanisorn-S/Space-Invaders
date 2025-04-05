@@ -29,4 +29,9 @@ public class LogicScript : MonoBehaviour
 
         playerHealthText.text = playerHealth.ToString();
     }
+
+    public void gameOver()
+    {
+        Destroy(player);
+    }
 }

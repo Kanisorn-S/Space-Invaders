@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AlienSpawner : MonoBehaviour
+public class HardAlienSpawner : MonoBehaviour
 {
     public GameObject alienPrefab; // Reference to the bullet prefab
     public float spawnRate = 5f; // Rate at which aliens are spawned

@@ -16,7 +16,6 @@ public class AlienBehaviour : MonoBehaviour
     {
         spawnPosition = transform.position; // Store the initial position as the spawn position
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); // Find the LogicScript
-        Debug.Log(logic.playerScore); // Log the player's score
     }
 
     // Update is called once per frame
