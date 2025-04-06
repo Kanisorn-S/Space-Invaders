@@ -8,9 +8,16 @@ public class LogicScript : MonoBehaviour
     public Text scoreText;
     public GameObject player;
     public Text playerHealthText;
+    public AudioSource src;
+    public AudioClip gameSountrack;
+    public AudioClip gameOverSoundtrack;
 
     void Start()
     {
+        src.clip = gameSountrack;
+        src.loop = true;
+        src.volume = 0.2f;
+        src.Play();
         playerHealth = player.GetComponent<PlayerController>().health;
         playerHealthText.text = playerHealth.ToString();
     }
@@ -32,6 +39,11 @@ public class LogicScript : MonoBehaviour
 
     public void gameOver()
     {
+        src.Stop();
+        src.volume = 0.2f;
+        src.loop = false;
+        src.clip = gameOverSoundtrack;
+        src.Play();
         Destroy(player);
     }
 }
