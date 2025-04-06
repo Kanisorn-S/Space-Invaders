@@ -11,6 +11,7 @@ public class AlienBase : MonoBehaviour
     private float timer = 0f;
     // Reference to Main Logic
     public virtual LogicScript logic { get; set; } // Reference to the LogicScript; 
+    public bool isBoss = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
@@ -68,6 +69,10 @@ public class AlienBase : MonoBehaviour
                 // Check if health is zero or below
                 if (health <= 0)
                 {
+                    if (isBoss)
+                    {
+                        logic.BossDefeated();
+                    }
                     // Destroy the alien
                     Destroy(gameObject); 
                     // Add score to the player

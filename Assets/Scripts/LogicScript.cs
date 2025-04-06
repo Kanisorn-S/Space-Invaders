@@ -18,6 +18,11 @@ public class LogicScript : MonoBehaviour
     float elapsedTime;
     public GameObject bossPrefab;
     private bool isBossSpawned = false;
+    private bool isGameOver = false;
+    public int wave = 1;
+    private int bossTimer = 0;
+    private int previousSecond = 0;
+    private bool renewed = false;
 
     void Start()
     {
@@ -31,12 +36,21 @@ public class LogicScript : MonoBehaviour
 
     void Update()
     {
+        if (isGameOver)
+            return;
         elapsedTime += Time.deltaTime;
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
+        if (seconds != previousSecond || renewed)
+        {
+            renewed = false;
+            previousSecond = seconds;
+            bossTimer++;
+            Debug.Log("Boss Timer: " + bossTimer);
+        }
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
         // Debug.Log(minutes + ":" + seconds);
-        if (minutes == 0 && seconds == 30 && !isBossSpawned)
+        if (bossTimer == 30 && !isBossSpawned)
         {
             isBossSpawned = true;
             spawnBoss();
@@ -71,12 +85,15 @@ public class LogicScript : MonoBehaviour
 
     public void BossDefeated()
     {
+        Debug.Log("Boss defeated!");
         src.Stop();
         src.volume = 0.2f;
         src.loop = true;
         src.clip = gameSountrack;
         src.Play();
         isBossSpawned = false;
+        renewed = true;
+        bossTimer = 0;
     }
     public void gameOver()
     {
@@ -85,6 +102,7 @@ public class LogicScript : MonoBehaviour
         src.loop = false;
         src.clip = gameOverSoundtrack;
         src.Play();
+        isGameOver = true;
         Destroy(player);
     }
 }

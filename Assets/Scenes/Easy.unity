@@ -573,6 +573,7 @@ MonoBehaviour:
   bossSoundtrack: {fileID: 8300000, guid: 8a89ac07f74047741b21eff452d96a63, type: 3}
   timerText: {fileID: 1871863466}
   bossPrefab: {fileID: 8119691424541879155, guid: e365c4ec59652e647a81f8ab29dcc871, type: 3}
+  wave: 1
 --- !u!4 &592431641
 Transform:
   m_ObjectHideFlags: 0
@@ -805,7 +806,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1200408324}
-  - component: {fileID: 1200408323}
+  - component: {fileID: 1200408325}
   m_Layer: 0
   m_Name: Medium Alien Spawner
   m_TagString: Untagged
@@ -813,24 +814,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1200408323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200408322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1382f6f5b09bca4b9c2b1fc6b5196a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alienPrefab: {fileID: 2849196959840423428, guid: e0ad2ca2486e5cf42871d5802f366e07, type: 3}
-  spawnRate: 5
-  minX: -10
-  maxX: 10
-  minY: 0
-  maxY: 10
 --- !u!4 &1200408324
 Transform:
   m_ObjectHideFlags: 0
@@ -846,6 +829,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1200408325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200408322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9b40064d7bd5846b21190d2600fb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alienPrefab: {fileID: 2849196959840423428, guid: e0ad2ca2486e5cf42871d5802f366e07, type: 3}
+  spawnRate: 5
+  minX: -10
+  maxX: 10
+  minY: 0
+  maxY: 10
+  maxSpawnCount: 10
+  logic: {fileID: 0}
 --- !u!1 &1202336312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6242606475071470700, guid: b359ab8a032b20b4da0a0f6049b5c2c5, type: 3}
@@ -1035,7 +1038,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1369973466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f77fdfad09fc2d4baeb4d0fefcf2afc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e266121fb5ef724b9ff0afa2e9fd492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 5381160136316989081, guid: fa5b0afceb1164c4fa57389d7c6a15ca, type: 3}
@@ -1044,6 +1047,8 @@ MonoBehaviour:
   maxX: 10
   minY: 0
   maxY: 10
+  maxSpawnCount: 10
+  logic: {fileID: 0}
 --- !u!1 &1378118234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1378118236}
-  - component: {fileID: 1378118235}
+  - component: {fileID: 1378118237}
   m_Layer: 0
   m_Name: Easy Alien Spawner
   m_TagString: Untagged
@@ -1061,24 +1066,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1378118235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378118234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1382f6f5b09bca4b9c2b1fc6b5196a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alienPrefab: {fileID: 3117479936882336947, guid: 35a9a8295546a3640a3121f2e5d0d714, type: 3}
-  spawnRate: 5
-  minX: -10
-  maxX: 10
-  minY: 0
-  maxY: 10
 --- !u!4 &1378118236
 Transform:
   m_ObjectHideFlags: 0
@@ -1094,6 +1081,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1378118237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378118234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b308b6670e61548a04ab3a4911ec1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alienPrefab: {fileID: 3117479936882336947, guid: 35a9a8295546a3640a3121f2e5d0d714, type: 3}
+  spawnRate: 5
+  minX: -10
+  maxX: 10
+  minY: 0
+  maxY: 10
+  maxSpawnCount: 10
+  logic: {fileID: 0}
 --- !u!1 &1404935031
 GameObject:
   m_ObjectHideFlags: 0

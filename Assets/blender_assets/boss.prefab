@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 751718943835130702}
-  - component: {fileID: 4871965586695999841}
+  - component: {fileID: 7866600376450143699}
   m_Layer: 0
   m_Name: Medium Alien Spawner (1)
   m_TagString: Untagged
@@ -140,7 +140,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3608819425419717778}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &4871965586695999841
+--- !u!114 &7866600376450143699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2615945072145358284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1382f6f5b09bca4b9c2b1fc6b5196a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5328d61815062cd44a9f50ad80a30c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 2849196959840423428, guid: e0ad2ca2486e5cf42871d5802f366e07, type: 3}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1282862882987521326}
-  - component: {fileID: 4245533035662606751}
+  - component: {fileID: 5530597584290822852}
   m_Layer: 0
   m_Name: Medium Alien Spawner
   m_TagString: Untagged
@@ -190,7 +190,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3608819425419717778}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &4245533035662606751
+--- !u!114 &5530597584290822852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7409275651946839522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1382f6f5b09bca4b9c2b1fc6b5196a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5328d61815062cd44a9f50ad80a30c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 2849196959840423428, guid: e0ad2ca2486e5cf42871d5802f366e07, type: 3}
@@ -335,4 +335,5 @@ MonoBehaviour:
   spawnPosition: {x: 0, y: 0, z: 0}
   speed: 1
   fireRate: 5
+  isBoss: 0
   healthBar: {fileID: 1712385552275605467}
