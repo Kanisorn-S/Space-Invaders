@@ -26,6 +26,8 @@ public class LogicScript : MonoBehaviour
 
     void Start()
     {
+        wave = GameData.startingWave;
+        Debug.Log(wave);
         src.clip = gameSountrack;
         src.loop = true;
         src.volume = 0.2f;
@@ -46,7 +48,6 @@ public class LogicScript : MonoBehaviour
             renewed = false;
             previousSecond = seconds;
             bossTimer++;
-            Debug.Log("Boss Timer: " + bossTimer);
         }
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
         // Debug.Log(minutes + ":" + seconds);
@@ -85,7 +86,6 @@ public class LogicScript : MonoBehaviour
 
     public void BossDefeated()
     {
-        Debug.Log("Boss defeated!");
         src.Stop();
         src.volume = 0.2f;
         src.loop = true;
@@ -93,6 +93,8 @@ public class LogicScript : MonoBehaviour
         src.Play();
         isBossSpawned = false;
         renewed = true;
+        wave++;
+        Debug.Log(wave);
         bossTimer = 0;
     }
     public void gameOver()

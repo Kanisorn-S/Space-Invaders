@@ -5,6 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void OpenLevel(int levelIndex)
     {
-        SceneManager.LoadScene(levelIndex);
+        GameData.startingWave = levelIndex;
+        SceneManager.LoadScene(1);
     }
 }
