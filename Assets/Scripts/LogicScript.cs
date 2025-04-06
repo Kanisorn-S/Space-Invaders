@@ -11,9 +11,14 @@ public class LogicScript : MonoBehaviour
     public GameObject player;
     // public Text playerHealthText;
     public AudioSource src;
+    public AudioSource ontopSrc;
+    public AudioSource[] audioSources;
+    private int currentAudioSourceIndex = 0;
     public AudioClip gameSountrack;
     public AudioClip gameOverSoundtrack;
     public AudioClip bossSoundtrack;
+    public AudioClip chanceBoxSound;
+    public AudioClip alienDeathSound;
     [SerializeField] public TextMeshProUGUI timerText;
     float elapsedTime;
     public GameObject bossPrefab;
@@ -27,12 +32,20 @@ public class LogicScript : MonoBehaviour
     void Start()
     {
         wave = GameData.startingWave;
-        Debug.Log(wave);
+        Debug.Log("Wave: " + wave);
         src.clip = gameSountrack;
         src.loop = true;
         src.volume = 0.2f;
         src.Play();
         playerHealth = player.GetComponent<PlayerController>().health;
+        if (audioSources.Length == 0)
+        {
+            audioSources = new AudioSource[10];
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                audioSources[i] = gameObject.AddComponent<AudioSource>();
+            }
+        }
         // playerHealthText.text = playerHealth.ToString();
     }
 
@@ -84,7 +97,7 @@ public class LogicScript : MonoBehaviour
         Instantiate(bossPrefab, new Vector3(0, -4.64f, 21.9f), Quaternion.identity);
     }
 
-    public void BossDefeated()
+    public void bossDefeated()
     {
         src.Stop();
         src.volume = 0.2f;
@@ -94,8 +107,27 @@ public class LogicScript : MonoBehaviour
         isBossSpawned = false;
         renewed = true;
         wave++;
-        Debug.Log(wave);
+        Debug.Log("Wave: " + wave);
         bossTimer = 0;
+    }
+    
+    public void chanceBox()
+    {
+        ontopSrc.Stop();
+        ontopSrc.volume = 0.2f;
+        ontopSrc.loop = false;
+        ontopSrc.clip = chanceBoxSound;
+        ontopSrc.time = 1f;
+        ontopSrc.Play();
+    }
+
+    public void alienDeath()
+    {
+        AudioSource src = audioSources[currentAudioSourceIndex];
+        src.clip = alienDeathSound;
+        src.volume = 0.2f;
+        src.Play();
+        currentAudioSourceIndex = (currentAudioSourceIndex + 1) % audioSources.Length;
     }
     public void gameOver()
     {

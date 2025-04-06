@@ -61,12 +61,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, homeRotation, tiltSpeed * Time.deltaTime);
         }
 
-        // if (Input.GetMouseButton(1)) // Right-click
-        //     movement += Vector3.back * moveSpeed * Time.deltaTime;
-
-        // if (Input.GetMouseButton(0)) // Left-click
-        //     movement += Vector3.forward * moveSpeed * Time.deltaTime;
-
         transform.Translate(movement, Space.World);
 
         // Shooting bullets
@@ -80,7 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         AudioSource src = audioSources[currentAudioSourceIndex];
         src.clip = shootSound;
-        src.time = 0.8f;
+        src.time = 0.2f;
         src.Play();
         currentAudioSourceIndex = (currentAudioSourceIndex + 1) % audioSources.Length;
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);

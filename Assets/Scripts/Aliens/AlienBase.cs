@@ -71,8 +71,9 @@ public class AlienBase : MonoBehaviour
                 {
                     if (isBoss)
                     {
-                        logic.BossDefeated();
+                        logic.bossDefeated();
                     }
+                    logic.alienDeath();
                     // Destroy the alien
                     Destroy(gameObject); 
                     // Add score to the player
