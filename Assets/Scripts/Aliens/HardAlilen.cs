@@ -5,6 +5,7 @@ public class HardAlien : AlienBase
     public float radius = 5f; // Radius of the circle
     private float angle = 0f; // Current angle in radians
     public override int score { get; set; } = 50; // Hard alien score
+    public override int health { get; set; } = 200; // Hard alien health
     public override void move()
     {
         // Circular motion logic

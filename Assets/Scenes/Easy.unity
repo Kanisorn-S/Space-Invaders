@@ -570,7 +570,9 @@ MonoBehaviour:
   src: {fileID: 1166630613}
   gameSountrack: {fileID: 8300000, guid: c4c73c6e9053f574781131ce63c41bf4, type: 3}
   gameOverSoundtrack: {fileID: 8300000, guid: 304cd24d43912c747a5728ebe0d44ea7, type: 3}
+  bossSoundtrack: {fileID: 8300000, guid: 8a89ac07f74047741b21eff452d96a63, type: 3}
   timerText: {fileID: 1871863466}
+  bossPrefab: {fileID: 8119691424541879155, guid: e365c4ec59652e647a81f8ab29dcc871, type: 3}
 --- !u!4 &592431641
 Transform:
   m_ObjectHideFlags: 0
@@ -580,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 592431639}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 260.08008, y: 174.72, z: 10.9985485}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

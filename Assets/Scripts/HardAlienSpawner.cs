@@ -32,7 +32,16 @@ public class HardAlienSpawner : MonoBehaviour
         // Instantiate a new alien at the spawner's position
         float x = Random.Range(minX, maxX);
         float y = Random.Range(minY, maxY);
-        Instantiate(alienPrefab, new Vector3(x, y, transform.position.z), transform.rotation);
+        GameObject hardAlien = Instantiate(alienPrefab, new Vector3(x, y, transform.position.z), transform.rotation);
+        HardAlien alienScript = hardAlien.GetComponent<HardAlien>();
+        if (alienScript != null)
+        {
+            alienScript.speed = 1f;
+        }
+        else
+        {
+            Debug.LogError("HardAlien script not found on the prefab!");
+        }
     }
 }
 

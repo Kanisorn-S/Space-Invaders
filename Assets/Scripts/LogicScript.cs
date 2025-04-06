@@ -13,8 +13,11 @@ public class LogicScript : MonoBehaviour
     public AudioSource src;
     public AudioClip gameSountrack;
     public AudioClip gameOverSoundtrack;
+    public AudioClip bossSoundtrack;
     [SerializeField] public TextMeshProUGUI timerText;
     float elapsedTime;
+    public GameObject bossPrefab;
+    private bool isBossSpawned = false;
 
     void Start()
     {
@@ -32,6 +35,12 @@ public class LogicScript : MonoBehaviour
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
         timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+        // Debug.Log(minutes + ":" + seconds);
+        if (minutes == 0 && seconds == 30 && !isBossSpawned)
+        {
+            isBossSpawned = true;
+            spawnBoss();
+        }
     }
     public void addScore(int score)
     {
@@ -49,6 +58,26 @@ public class LogicScript : MonoBehaviour
         // playerHealthText.text = playerHealth.ToString();
     }
 
+    public void spawnBoss()
+    {
+        // Debug.Log(Time.deltaTime);
+        src.Stop();
+        src.volume = 0.2f;
+        src.loop = true;
+        src.clip = bossSoundtrack;
+        src.Play();
+        Instantiate(bossPrefab, new Vector3(0, -4.64f, 21.9f), Quaternion.identity);
+    }
+
+    public void BossDefeated()
+    {
+        src.Stop();
+        src.volume = 0.2f;
+        src.loop = true;
+        src.clip = gameSountrack;
+        src.Play();
+        isBossSpawned = false;
+    }
     public void gameOver()
     {
         src.Stop();

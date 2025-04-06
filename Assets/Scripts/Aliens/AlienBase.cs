@@ -3,7 +3,7 @@ using UnityEngine;
 public class AlienBase : MonoBehaviour
 {
     // Alien's Information
-    public virtual int health { get; set; } = 100; 
+    public virtual int health { get; set; } = 50; 
     public virtual int score { get; set; } = 10;
     public Vector3 spawnPosition; // Spawn position to use as the center of the circle
     public float speed = 1f; 
@@ -39,7 +39,7 @@ public class AlienBase : MonoBehaviour
     public virtual void move()
     {
         // Move the alien
-        transform.Translate(Vector3.back * speed * Time.deltaTime);
+        // transform.Translate(Vector3.back * speed * Time.deltaTime);
     }
 
     // public virtual void shoot()
@@ -52,7 +52,7 @@ public class AlienBase : MonoBehaviour
     //     bulletScript.damage = 10;
     // }
 
-    void OnCollisionEnter(Collision collision)
+    public virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 3)
         {

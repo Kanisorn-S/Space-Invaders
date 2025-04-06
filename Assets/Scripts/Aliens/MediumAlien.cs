@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MediumAlien : AlienBase
 {
-    public float radius = 5f; // Radius of the circle
-    private float angle = 0f; // Current angle in radians
+    public override int health { get; set; } = 100; // Medium alien health
     public override int score { get; set; } = 30; // Medium alien score
     public override void move()
     {
