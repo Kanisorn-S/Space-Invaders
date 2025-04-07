@@ -28,6 +28,7 @@ public class LogicScript : MonoBehaviour
     private int bossTimer = 0;
     private int previousSecond = 0;
     private bool renewed = false;
+    public Animator animator;
 
     void Start()
     {
@@ -113,12 +114,14 @@ public class LogicScript : MonoBehaviour
     
     public void chanceBox()
     {
+        animator.SetTrigger("Laser");
         ontopSrc.Stop();
         ontopSrc.volume = 0.2f;
         ontopSrc.loop = false;
         ontopSrc.clip = chanceBoxSound;
         ontopSrc.time = 1f;
         ontopSrc.Play();
+        animator.SetTrigger("PowerDownTrigger");
     }
 
     public void alienDeath()

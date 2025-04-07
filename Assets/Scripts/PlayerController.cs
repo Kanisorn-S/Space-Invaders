@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour
     {
         AudioSource src = audioSources[currentAudioSourceIndex];
         src.clip = shootSound;
-        src.time = 0.2f;
+        src.volume = 0.2f;
+        src.time = 0.8f;
         src.Play();
         currentAudioSourceIndex = (currentAudioSourceIndex + 1) % audioSources.Length;
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
