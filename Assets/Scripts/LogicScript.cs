@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LogicScript : MonoBehaviour
@@ -23,12 +24,15 @@ public class LogicScript : MonoBehaviour
     float elapsedTime;
     public GameObject bossPrefab;
     private bool isBossSpawned = false;
-    private bool isGameOver = false;
+    public bool isGameOver = false;
     public int wave = 1;
     private int bossTimer = 0;
     private int previousSecond = 0;
     private bool renewed = false;
     public Animator animator;
+    public GameObject DeathScreen;
+    [SerializeField] public TextMeshProUGUI DeathScoreText;
+    [SerializeField] public TextMeshProUGUI DeathHighScoreText;
 
     void Start()
     {
@@ -141,5 +145,22 @@ public class LogicScript : MonoBehaviour
         src.Play();
         isGameOver = true;
         Destroy(player);
+        DeathScoreText.text = playerScore.ToString();
+        if (playerScore > GameData.highScore)
+        {
+            GameData.highScore = playerScore;
+        }
+        DeathHighScoreText.text = GameData.highScore.ToString();
+        DeathScreen.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

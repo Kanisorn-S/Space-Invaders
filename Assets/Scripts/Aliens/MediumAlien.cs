@@ -9,7 +9,7 @@ public class MediumAlien : AlienBase
         // Straight motion logic
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - speed * Time.deltaTime);
 
-        if (transform.position.z <= -5f)
+        if (transform.position.z <= -5f && !logic.isGameOver) // If the alien reaches the bottom of the screen
         {
             logic.gameOver();
             Destroy(gameObject); // Destroy the alien
