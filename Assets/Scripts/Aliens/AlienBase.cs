@@ -25,6 +25,10 @@ public class AlienBase : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
+        if (logic.powerUpIndex == 4)
+        {
+            speed = speed / 2;
+        }
       // Call the move function
       move();
       // Call the shoot function

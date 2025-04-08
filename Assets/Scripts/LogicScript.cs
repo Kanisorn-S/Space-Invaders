@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class LogicScript : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class LogicScript : MonoBehaviour
     public int playerHealth;
     // public Text scoreText;
     [SerializeField] public TextMeshProUGUI scoreText; 
-    public GameObject player;
+    public PlayerController player;
     // public Text playerHealthText;
     public AudioSource src;
     public AudioSource ontopSrc;
@@ -33,6 +34,19 @@ public class LogicScript : MonoBehaviour
     public GameObject DeathScreen;
     [SerializeField] public TextMeshProUGUI DeathScoreText;
     [SerializeField] public TextMeshProUGUI DeathHighScoreText;
+    public GameObject powerUpBanner;
+    public GameObject laser;
+
+    private (string, int)[] powerUps = new (string, int)[]
+    {
+        ("Shields", 10),
+        ("Laser", 10),
+        ("Lightning", 10),
+        ("Star", 10),
+        ("Time", 10)
+    };
+
+    public int powerUpIndex;
 
     void Start()
     {
@@ -77,6 +91,10 @@ public class LogicScript : MonoBehaviour
     }
     public void addScore(int score)
     {
+        if (powerUpIndex == 3)
+        {
+            score = score * 2;
+        }
         playerScore += score;
         scoreText.text = playerScore.ToString();
     }
@@ -118,14 +136,50 @@ public class LogicScript : MonoBehaviour
     
     public void chanceBox()
     {
-        animator.SetTrigger("Laser");
+        powerUpIndex = Random.Range(0, powerUps.Length);
+        powerUpBanner.SetActive(true);
+        switch (powerUps[powerUpIndex].Item1)
+        {
+            case "Shields":
+                animator.SetTrigger("Shields");
+                break;
+            case "Laser":
+                animator.SetTrigger("Laser");
+                laser.SetActive(true);
+                break;
+            case "Lightning":
+                animator.SetTrigger("Lightning");
+                player.moveSpeed = player.moveSpeed * 2;
+                player.tiltSpeed = player.tiltSpeed * 2;
+                break;
+            case "Star":
+                animator.SetTrigger("Star");
+                break;
+            case "Time":
+                animator.SetTrigger("Time");
+                break;
+        }
         ontopSrc.Stop();
         ontopSrc.volume = 0.2f;
         ontopSrc.loop = false;
         ontopSrc.clip = chanceBoxSound;
         ontopSrc.time = 1f;
         ontopSrc.Play();
-        animator.SetTrigger("PowerDownTrigger");
+        float duration = powerUps[powerUpIndex].Item2;
+        StartCoroutine(DeactivatePowerUpBanner(duration));
+    }
+
+    private IEnumerator DeactivatePowerUpBanner(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        laser.SetActive(false);
+        if (powerUpIndex == 2)
+        {
+            player.moveSpeed = player.moveSpeed / 2;
+            player.tiltSpeed = player.tiltSpeed / 2;
+        }
+        powerUpBanner.SetActive(false);
+        powerUpIndex = -1;
     }
 
     public void alienDeath()
@@ -138,6 +192,10 @@ public class LogicScript : MonoBehaviour
     }
     public void gameOver()
     {
+        if (powerUpIndex == 0)
+        {
+            return;
+        }
         src.Stop();
         src.volume = 0.2f;
         src.loop = false;

@@ -1095,7 +1095,7 @@ MonoBehaviour:
   playerScore: 0
   playerHealth: 0
   scoreText: {fileID: 1214694462}
-  player: {fileID: 1202336312}
+  player: {fileID: 1202336322}
   src: {fileID: 1166630613}
   ontopSrc: {fileID: 1553305352}
   audioSources: []
@@ -1112,6 +1112,9 @@ MonoBehaviour:
   DeathScreen: {fileID: 1215107353}
   DeathScoreText: {fileID: 1086046784}
   DeathHighScoreText: {fileID: 502682868}
+  powerUpBanner: {fileID: 1741841528}
+  laser: {fileID: 1914933124}
+  powerUpIndex: 0
 --- !u!4 &592431641
 Transform:
   m_ObjectHideFlags: 0
@@ -1832,6 +1835,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1202336322 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2557507441754570713, guid: b359ab8a032b20b4da0a0f6049b5c2c5, type: 3}
+  m_PrefabInstance: {fileID: 3628552410821964280}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202336312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32eb683b2807a954ca0c4067800b20c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1214694460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,7 +2966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1741841529
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3180,6 +3194,11 @@ RectTransform:
   m_AnchoredPosition: {x: -539.74, y: 316.36313}
   m_SizeDelta: {x: 278.45154, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1914933124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 836393361667561574, guid: b359ab8a032b20b4da0a0f6049b5c2c5, type: 3}
+  m_PrefabInstance: {fileID: 3628552410821964280}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1927772440
 GameObject:
   m_ObjectHideFlags: 0
