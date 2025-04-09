@@ -5,6 +5,12 @@ public class EasyAlien : AlienBase
     private float maxXAlien = 10f; // Maximum x position
     private float minXAlien = -10f; // Minimum x position
     private int update = 1;
+
+    public override void Start()
+    {
+        base.Start(); // Call the base class Start method
+        spawner = GameObject.FindGameObjectWithTag("EasySpawner").GetComponent<BaseAlienSpawner>(); // Find the AlienSpawner
+    }
     public override void move()
     {
         // Move side to side

@@ -7,11 +7,15 @@ public class AlienBase : MonoBehaviour
     public virtual int score { get; set; } = 10;
     public Vector3 spawnPosition; // Spawn position to use as the center of the circle
     public float speed = 1f; 
+    public float baseSpeed = 1f;
     public float fireRate = 5f;
     private float timer = 0f;
     // Reference to Main Logic
     public virtual LogicScript logic { get; set; } // Reference to the LogicScript; 
     public bool isBoss = false;
+    public float normalSpeed; // Normal speed of the alien
+    public float slowedSpeed; // Slowed speed of the alien
+    public BaseAlienSpawner spawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
@@ -20,6 +24,8 @@ public class AlienBase : MonoBehaviour
         spawnPosition = transform.position; 
         // Find the LogicScript
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); 
+        normalSpeed = baseSpeed + logic.wave * 0.05f; // Increase speed based on wave
+        slowedSpeed = normalSpeed / 2f; // Set the slowed speed to half of the normal speed
     }
 
     // Update is called once per frame
@@ -27,7 +33,9 @@ public class AlienBase : MonoBehaviour
     {
         if (logic.powerUpIndex == 4)
         {
-            speed = speed / 2;
+            speed = slowedSpeed; // Set speed to slowed speed if power-up is active
+        } else {
+            speed = normalSpeed; // Set speed to normal speed if power-up is not active
         }
       // Call the move function
       move();
@@ -76,6 +84,8 @@ public class AlienBase : MonoBehaviour
                     if (isBoss)
                     {
                         logic.bossDefeated();
+                    } else {
+                        spawner.alienDeathCount++; // Increment the alien death count in the spawner
                     }
                     logic.alienDeath();
                     // Destroy the alien

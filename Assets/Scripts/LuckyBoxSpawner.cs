@@ -11,6 +11,7 @@ public class LuckyBoxSpawner : MonoBehaviour
     public float maxY = 10f;
     private int spawnCount = 0; // Number of lucky boxes spawned
     public int maxSpawnCount = 3; // Maximum number of lucky boxes to spawn
+    public int baseSpawnCount = 3; // Base number of lucky boxes to spawn
     public LogicScript logic; // Reference to the LogicScript
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,5 +43,12 @@ public class LuckyBoxSpawner : MonoBehaviour
         float y = Random.Range(minY, maxY);
         Instantiate(luckyBoxPrefab, new Vector3(x, y, transform.position.z), transform.rotation);
         spawnCount++;
+    }
+
+    public void goToWave(int wave)
+    {
+        // Logic to go to the next wave
+        spawnCount = 0; // Reset spawn count for the new wave
+        maxSpawnCount = baseSpawnCount + (1 * wave); // Increase max spawn count based on wave
     }
 }

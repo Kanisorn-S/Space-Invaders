@@ -4,6 +4,7 @@ public class Boss : AlienBase
 {
     public override int score { get; set; } = 200; 
     public override int health { get; set; } = 1000; 
+    private int baseHealth = 1000; // Base health for the boss
     private float healthBarScale;
     public GameObject healthBar;
 
@@ -12,6 +13,7 @@ public class Boss : AlienBase
         base.Start(); // Call the base class Start method
         healthBarScale = healthBar.transform.localScale.x; // Store the initial scale of the health bar
         isBoss = true; // Set isBoss to true
+        health = baseHealth + (200 * logic.wave); // Set the health to the base health
     }
     public override void Update()
     {

@@ -6,6 +6,11 @@ public class HardAlien : AlienBase
     private float angle = 0f; // Current angle in radians
     public override int score { get; set; } = 50; // Hard alien score
     public override int health { get; set; } = 200; // Hard alien health
+    public override void Start()
+    {
+        base.Start(); // Call the base class Start method
+        spawner = GameObject.FindGameObjectWithTag("HardSpawner").GetComponent<BaseAlienSpawner>(); // Find the AlienSpawner
+    }
     public override void move()
     {
         // Circular motion logic

@@ -25,7 +25,7 @@ public class LogicScript : MonoBehaviour
     float elapsedTime;
     public GameObject bossPrefab;
     private bool isBossSpawned = false;
-    public bool isGameOver = false;
+    public static bool isGameOver = false;
     public int wave = 1;
     private int bossTimer = 0;
     private int previousSecond = 0;
@@ -36,6 +36,11 @@ public class LogicScript : MonoBehaviour
     [SerializeField] public TextMeshProUGUI DeathHighScoreText;
     public GameObject powerUpBanner;
     public GameObject laser;
+    public BaseAlienSpawner[] alienSpawners;
+    private bool readyToLevelUp = false;
+    [SerializeField] public TextMeshProUGUI waveText;
+    [SerializeField] public TextMeshProUGUI waveNumberText;
+    private int displayedWave = 1;
 
     private (string, int)[] powerUps = new (string, int)[]
     {
@@ -46,11 +51,14 @@ public class LogicScript : MonoBehaviour
         ("Time", 10)
     };
 
-    public int powerUpIndex;
+    public int powerUpIndex = -1;
 
     void Start()
     {
+        StartCoroutine(DisplayWaveText());
         wave = GameData.startingWave;
+        bossTimer = 0;
+        LogicScript.isGameOver = false;
         Debug.Log("Wave: " + wave);
         src.clip = gameSountrack;
         src.loop = true;
@@ -70,23 +78,53 @@ public class LogicScript : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver)
+        if (LogicScript.isGameOver)
             return;
         elapsedTime += Time.deltaTime;
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
+        if (wave % 5 == 4)
+        {
+            Debug.Log("Boss Wave");
+            Debug.Log("Boss Timer: " + bossTimer);
         if (seconds != previousSecond || renewed)
         {
             renewed = false;
             previousSecond = seconds;
             bossTimer++;
         }
-        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
-        // Debug.Log(minutes + ":" + seconds);
-        if (bossTimer == 30 && !isBossSpawned)
+        if (bossTimer == 15 && !isBossSpawned)
         {
             isBossSpawned = true;
             spawnBoss();
+        }
+
+        }
+        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+        // Debug.Log(minutes + ":" + seconds);
+
+        if (wave % 5 != 4)
+        {
+            foreach (BaseAlienSpawner spawner in alienSpawners)
+            {
+                if (!spawner.cleared)
+                {
+                    return;
+                }
+            }
+            nextWave();
+        } else {
+            foreach (BaseAlienSpawner spawner in alienSpawners)
+            {
+                if (!spawner.cleared)
+                {
+                    return;
+                }
+            }
+            if (readyToLevelUp)
+            {
+                nextWave();
+            }
         }
     }
     public void addScore(int score)
@@ -112,6 +150,10 @@ public class LogicScript : MonoBehaviour
     public void spawnBoss()
     {
         // Debug.Log(Time.deltaTime);
+        if (wave % 5 != 4)
+        {
+            return;
+        }
         src.Stop();
         src.volume = 0.2f;
         src.loop = true;
@@ -129,9 +171,68 @@ public class LogicScript : MonoBehaviour
         src.Play();
         isBossSpawned = false;
         renewed = true;
+        readyToLevelUp = true;
+        // wave++;
+        // foreach (BaseAlienSpawner spawner in alienSpawners)
+        // {
+        //     spawner.goToWave(wave);
+        // }
+    }
+
+    public void nextWave()
+    {
         wave++;
+        displayedWave++;
         Debug.Log("Wave: " + wave);
+        foreach (BaseAlienSpawner spawner in alienSpawners)
+        {
+            spawner.goToWave(wave);
+        }
+        waveNumberText.text = (displayedWave).ToString();
+        if (wave % 5 == 4)
+        {
+            waveNumberText.color = Color.red;
+        }
+        StartCoroutine(DisplayWaveText());
         bossTimer = 0;
+        readyToLevelUp = false;
+    }
+
+    private IEnumerator DisplayWaveText()
+    {
+        waveText.gameObject.SetActive(true);
+        waveNumberText.gameObject.SetActive(true);
+
+        CanvasGroup waveCanvasGroup = waveText.GetComponent<CanvasGroup>();
+        CanvasGroup waveTextCanvasGroup = waveNumberText.GetComponent<CanvasGroup>();
+
+        // Fade in
+        for (float t = 0; t <= 1; t += Time.deltaTime)
+        {
+            waveCanvasGroup.alpha = t;
+            waveTextCanvasGroup.alpha = t;
+            yield return null;
+        }
+
+        waveCanvasGroup.alpha = 1;
+        waveTextCanvasGroup.alpha = 1;
+
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2);
+
+        // Fade out
+        for (float t = 1; t >= 0; t -= Time.deltaTime)
+        {
+            waveCanvasGroup.alpha = t;
+            waveTextCanvasGroup.alpha = t;
+            yield return null;
+        }
+
+        waveCanvasGroup.alpha = 0;
+        waveTextCanvasGroup.alpha = 0;
+
+        waveText.gameObject.SetActive(false);
+        waveNumberText.gameObject.SetActive(false);
     }
     
     public void chanceBox()
@@ -145,12 +246,9 @@ public class LogicScript : MonoBehaviour
                 break;
             case "Laser":
                 animator.SetTrigger("Laser");
-                laser.SetActive(true);
                 break;
             case "Lightning":
                 animator.SetTrigger("Lightning");
-                player.moveSpeed = player.moveSpeed * 2;
-                player.tiltSpeed = player.tiltSpeed * 2;
                 break;
             case "Star":
                 animator.SetTrigger("Star");
@@ -166,6 +264,14 @@ public class LogicScript : MonoBehaviour
         ontopSrc.time = 1f;
         ontopSrc.Play();
         float duration = powerUps[powerUpIndex].Item2;
+        if (powerUpIndex == 2)
+        {
+            player.moveSpeed = player.moveSpeed * 2;
+            player.tiltSpeed = player.tiltSpeed * 2;
+        } else if (powerUpIndex == 1)
+            laser.SetActive(true);
+        {
+        }
         StartCoroutine(DeactivatePowerUpBanner(duration));
     }
 
@@ -192,6 +298,8 @@ public class LogicScript : MonoBehaviour
     }
     public void gameOver()
     {
+        Debug.Log("Game Over!");
+        Debug.Log("PowerUp Index: " + powerUpIndex);
         if (powerUpIndex == 0)
         {
             return;
@@ -201,7 +309,7 @@ public class LogicScript : MonoBehaviour
         src.loop = false;
         src.clip = gameOverSoundtrack;
         src.Play();
-        isGameOver = true;
+        LogicScript.isGameOver = true;
         Destroy(player);
         DeathScoreText.text = playerScore.ToString();
         if (playerScore > GameData.highScore)

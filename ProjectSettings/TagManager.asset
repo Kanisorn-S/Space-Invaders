@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PlayerBullet
   - Logic
+  - EasySpawner
+  - MediumSpawner
+  - HardSpawner
   layers:
   - Default
   - TransparentFX
