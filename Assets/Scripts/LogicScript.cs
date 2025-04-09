@@ -52,9 +52,11 @@ public class LogicScript : MonoBehaviour
     };
 
     public int powerUpIndex = -1;
+    public LuckyBoxSpawner luckyBoxSpawner;
 
     void Start()
     {
+        waveNumberText.color = new Color(22f / 255f, 253f / 255f, 0f / 255f, 1f);
         StartCoroutine(DisplayWaveText());
         wave = GameData.startingWave;
         bossTimer = 0;
@@ -188,10 +190,13 @@ public class LogicScript : MonoBehaviour
         {
             spawner.goToWave(wave);
         }
+        luckyBoxSpawner.goToWave(wave);
         waveNumberText.text = (displayedWave).ToString();
         if (wave % 5 == 4)
         {
             waveNumberText.color = Color.red;
+        } else {
+            waveNumberText.color = new Color(22f / 255f, 253f / 255f, 0f / 255f, 1f);
         }
         StartCoroutine(DisplayWaveText());
         bossTimer = 0;

@@ -13,7 +13,7 @@ public class Boss : AlienBase
         base.Start(); // Call the base class Start method
         healthBarScale = healthBar.transform.localScale.x; // Store the initial scale of the health bar
         isBoss = true; // Set isBoss to true
-        health = baseHealth + (200 * logic.wave); // Set the health to the base health
+        health = baseHealth + (200 * logic.wave / 5); // Set the health to the base health
     }
     public override void Update()
     {

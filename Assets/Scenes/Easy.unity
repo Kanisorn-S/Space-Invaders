@@ -1270,6 +1270,7 @@ MonoBehaviour:
   waveText: {fileID: 467015804}
   waveNumberText: {fileID: 1300512122}
   powerUpIndex: -1
+  luckyBoxSpawner: {fileID: 155604440}
 --- !u!4 &592431641
 Transform:
   m_ObjectHideFlags: 0
@@ -2038,7 +2039,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -455.93994, y: 240.86313}
+  m_AnchoredPosition: {x: -378.39993, y: 216.57996}
   m_SizeDelta: {x: 274.85144, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1214694462
@@ -2621,7 +2622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -745.54004, y: 315.28314}
+  m_AnchoredPosition: {x: -668, y: 291}
   m_SizeDelta: {x: 262.0514, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1418443332
@@ -3022,7 +3023,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -742.04004, y: 240.16313}
+  m_AnchoredPosition: {x: -664.5, y: 215.87997}
   m_SizeDelta: {x: 269.0514, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632361846
@@ -3504,7 +3505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -539.74, y: 316.36313}
+  m_AnchoredPosition: {x: -462.19995, y: 292.07996}
   m_SizeDelta: {x: 278.45154, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1914933124 stripped
