@@ -24,7 +24,7 @@ public class AlienBase : MonoBehaviour
         spawnPosition = transform.position; 
         // Find the LogicScript
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); 
-        normalSpeed = baseSpeed + logic.wave * 0.05f; // Increase speed based on wave
+        normalSpeed = baseSpeed + logic.wave * 0.1f; // Increase speed based on wave
         slowedSpeed = normalSpeed / 2f; // Set the slowed speed to half of the normal speed
     }
 

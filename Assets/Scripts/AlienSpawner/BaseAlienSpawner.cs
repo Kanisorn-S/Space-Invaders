@@ -63,7 +63,7 @@ public class BaseAlienSpawner : MonoBehaviour
         alienDeathCount = 0;
         spawnCount = 0; // Reset spawn count for the new wave
         maxSpawnCount = baseSpawnCount + (1 * wave); // Increase max spawn count based on wave
-        spawnRate = 5f - (wave * 0.5f); // Decrease spawn rate based on wave
+        spawnRate = 5f - (wave * 0.8f); // Decrease spawn rate based on wave
         if (spawnRate < 1f) // Ensure spawn rate doesn't go below 1 second
         {
             spawnRate = 1f;
