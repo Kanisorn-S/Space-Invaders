@@ -41,6 +41,9 @@ public class LogicScript : MonoBehaviour
     [SerializeField] public TextMeshProUGUI waveText;
     [SerializeField] public TextMeshProUGUI waveNumberText;
     private int displayedWave = 1;
+    
+    public static bool isPaused = false;
+
 
     private (string, int)[] powerUps = new (string, int)[]
     {
@@ -53,6 +56,7 @@ public class LogicScript : MonoBehaviour
 
     public int powerUpIndex = -1;
     public LuckyBoxSpawner luckyBoxSpawner;
+    public GameObject pauseMenu;
 
     void Start()
     {
@@ -78,8 +82,32 @@ public class LogicScript : MonoBehaviour
         // playerHealthText.text = playerHealth.ToString();
     }
 
+    public void Pause()
+    {
+        Debug.Log("Pause Game");
+        Time.timeScale = 0f;
+        LogicScript.isPaused = true;
+        pauseMenu.SetActive(true);
+    }
+
+    public void UnPause()
+    {
+        Debug.Log("Unpause Game");
+        Time.timeScale = 1f;
+        LogicScript.isPaused = false;
+        pauseMenu.SetActive(false);
+    }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (LogicScript.isPaused)
+            {
+                UnPause();
+            } else {
+                Pause();
+            }
+        }
         if (LogicScript.isGameOver)
             return;
         elapsedTime += Time.deltaTime;
