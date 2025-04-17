@@ -44,6 +44,8 @@ public class LogicScript : MonoBehaviour
     
     public static bool isPaused = false;
 
+    // public LeaderBoardManager leaderboardManager;
+
 
     private (string, int)[] powerUps = new (string, int)[]
     {
@@ -348,6 +350,7 @@ public class LogicScript : MonoBehaviour
         if (playerScore > GameData.highScore)
         {
             GameData.highScore = playerScore;
+            LeaderBoardManager.Instance.SubmitScore(playerScore);
         }
         DeathHighScoreText.text = GameData.highScore.ToString();
         DeathScreen.SetActive(true);
