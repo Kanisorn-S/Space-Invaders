@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using SimpleJSON;
+using TMPro;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LeaderBoardManager : MonoBehaviour
 {
     public static LeaderBoardManager Instance { get; private set; }
     private string databaseURL = "https://d-space-invaders-default-rtdb.asia-southeast1.firebasedatabase.app/"; 
     private const string usersNode = "users";
+    public List<TextMeshProUGUI> leaderboardTexts; // UI elements to display leaderboard data
+    [SerializeField] public TextMeshProUGUI currentHighText; // UI element to display current high score
 
     private void Awake()
     {
@@ -19,12 +24,36 @@ public class LeaderBoardManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnDestroy()
+    {
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
     void Start()
     {
         StartCoroutine(FetchLeaderboardData());
         Awake();
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+    // Reassign references to the TMP Texts
+    leaderboardTexts[0] = GameObject.Find("FirstText")?.GetComponent<TextMeshProUGUI>();
+    leaderboardTexts[1] = GameObject.Find("SecondText")?.GetComponent<TextMeshProUGUI>();
+    leaderboardTexts[2] = GameObject.Find("ThirdText")?.GetComponent<TextMeshProUGUI>();
+
+    }
+    public void FetchLeaderboard()
+    {
+        leaderboardTexts[0] = GameObject.FindGameObjectWithTag("FirstText")?.GetComponent<TextMeshProUGUI>();
+        leaderboardTexts[1] = GameObject.FindGameObjectWithTag("SecondText")?.GetComponent<TextMeshProUGUI>();
+        leaderboardTexts[2] = GameObject.FindGameObjectWithTag("ThirdText")?.GetComponent<TextMeshProUGUI>();
+        currentHighText = GameObject.FindGameObjectWithTag("CurrentHigh")?.GetComponent<TextMeshProUGUI>();
+        Debug.Log("Fetching leaderboard data...");
+        Debug.Log(leaderboardTexts[0]);
+        StartCoroutine(FetchLeaderboardData());
     }
 
     public void SubmitScore(int newScore)
@@ -87,7 +116,7 @@ public class LeaderBoardManager : MonoBehaviour
             yield break;
         }
 
-        string url = $"{databaseURL}/leaderboard.json?auth={GameData.idToken}&orderBy=\"score\"&limitToLast=3";
+        string url = $"{databaseURL}/users.json?auth={GameData.idToken}";
 
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
@@ -95,31 +124,36 @@ public class LeaderBoardManager : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError("Failed to fetch leaderboard: " + request.error);
+            Debug.LogError("Fetch failed: " + request.downloadHandler.text);
+            // Also helpful:
+            Debug.LogError("Status Code: " + request.responseCode);
             yield break;
         }
 
         // Parse and sort the JSON
         JSONNode rawJson = JSON.Parse(request.downloadHandler.text);
-        List<(string username, int score)> topScores = new List<(string, int)>();
+        List<(string username, int highscore)> topScores = new List<(string, int)>();
 
         foreach (KeyValuePair<string, JSONNode> entry in rawJson)
         {
             string name = entry.Value["username"];
-            int score = entry.Value["score"];
-            topScores.Add((name, score));
+            int highscore = entry.Value["highscore"];
+            topScores.Add((name, highscore));
         }
 
         // Sort in descending order
-        topScores.Sort((a, b) => b.score.CompareTo(a.score));
+        topScores.Sort((a, b) => b.highscore.CompareTo(a.highscore));
+        GameData.leaderboardData = topScores; // Update GameData with the leaderboard data
 
         Debug.Log("🏆 Top 3 Leaderboard:");
         for (int i = 0; i < Mathf.Min(3, topScores.Count); i++)
         {
-            Debug.Log($"{i + 1}. {topScores[i].username} - {topScores[i].score}");
+            Debug.Log($"{i + 1}. {topScores[i].username} - {topScores[i].highscore}");
+            leaderboardTexts[i].text = $"{topScores[i].username}: {topScores[i].highscore} PTS"; // Update UI elements
         }
 
         // Fetch current user's score
-        string userUrl = $"{databaseURL}/leaderboard/{GameData.localId}/score.json?auth={GameData.idToken}";
+        string userUrl = $"{databaseURL}/users/{GameData.localId}/highscore.json?auth={GameData.idToken}";
         UnityWebRequest userRequest = UnityWebRequest.Get(userUrl);
         yield return userRequest.SendWebRequest();
 
@@ -127,11 +161,15 @@ public class LeaderBoardManager : MonoBehaviour
         {
             int userScore = int.Parse(userRequest.downloadHandler.text);
             GameData.highScore = userScore; // Update GameData with the user's score
+            currentHighText.text = userScore.ToString(); // Update UI element
             Debug.Log($"{GameData.username}'s High Score: {userScore}");
         }
         else
         {
             Debug.LogWarning("Could not fetch current user's score: " + userRequest.error);
+            Debug.LogError("Login failed: " + userRequest.downloadHandler.text);
+            // Also helpful:
+            Debug.LogError("Status Code: " + userRequest.responseCode);
         }
     }
 }

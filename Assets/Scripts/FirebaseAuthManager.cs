@@ -13,9 +13,21 @@ public class FirebaseAuthManager : MonoBehaviour
     public GameObject mainMenuScreen;
     public GameObject loginScreen;
     [SerializeField] public TextMeshProUGUI usernameText;
+    [SerializeField] public TextMeshProUGUI currentHighText;
     public GameObject leaderboardManager;
 
     private const string API_KEY = "AIzaSyDsuvRfL2aNmHwg9OlS13-KADmysyt1wrY"; 
+
+    private void Start()
+    {
+        if (GameData.username != null)
+        {
+            usernameText.text = GameData.username;
+            currentHighText.text = GameData.highScore.ToString(); // Display the current high score
+            loginScreen.SetActive(false); // Hide the login screen if username is already set
+            mainMenuScreen.SetActive(true); // Show the main menu screen
+        }
+    }
 
     public void OnSignUp()
     {
@@ -71,6 +83,7 @@ public class FirebaseAuthManager : MonoBehaviour
             Debug.Log("Token: " + GameData.idToken);
             Debug.Log("Username: " + GameData.username);
             usernameText.text = GameData.username;
+            currentHighText.text = GameData.highScore.ToString(); // Display the current high score
             leaderboardManager.SetActive(true); // Activate the leaderboard manager
         }
         else
@@ -111,6 +124,7 @@ public class FirebaseAuthManager : MonoBehaviour
             Debug.Log("Token: " + GameData.idToken);
             Debug.Log("Username: " + GameData.username);
             usernameText.text = GameData.username;
+            currentHighText.text = GameData.highScore.ToString(); // Display the current high score
             leaderboardManager.SetActive(true); // Activate the leaderboard manager
         }
         else

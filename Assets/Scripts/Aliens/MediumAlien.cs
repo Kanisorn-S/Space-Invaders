@@ -3,7 +3,7 @@ using UnityEngine;
 public class MediumAlien : AlienBase
 {
     public override int health { get; set; } = 100; // Medium alien health
-    public override int score { get; set; } = 30; // Medium alien score
+    public override int score { get; set; } = 30 + (10 * GameData.startingWave); // Medium alien score
     public override void Start()
     {
         base.Start(); // Call the base class Start method

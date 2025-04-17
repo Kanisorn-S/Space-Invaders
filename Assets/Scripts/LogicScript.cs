@@ -363,6 +363,7 @@ public class LogicScript : MonoBehaviour
 
     public void MainMenu()
     {
+        LeaderBoardManager.Instance.gameObject.SetActive(true);
         SceneManager.LoadScene(0);
     }
 }

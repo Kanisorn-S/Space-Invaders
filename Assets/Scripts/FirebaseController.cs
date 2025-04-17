@@ -12,6 +12,7 @@ public class FirebaseController : MonoBehaviour
     public InputField emailInputField, passwordInputField;
     [SerializeField] public TextMeshProUGUI errorText;
 
+    
     public void LoginUser()
     {
         if(string.IsNullOrEmpty(emailInputField.text) || string.IsNullOrEmpty(passwordInputField.text))

@@ -4,7 +4,7 @@ public class AlienBase : MonoBehaviour
 {
     // Alien's Information
     public virtual int health { get; set; } = 50; 
-    public virtual int score { get; set; } = 10;
+    public virtual int score { get; set; } = 10 + (5 * GameData.startingWave); // Score to be given when the alien is destroyed
     public Vector3 spawnPosition; // Spawn position to use as the center of the circle
     public float speed = 1f; 
     public float baseSpeed = 1f;

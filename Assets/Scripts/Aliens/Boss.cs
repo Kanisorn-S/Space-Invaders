@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Boss : AlienBase
 {
-    public override int score { get; set; } = 200; 
+    public override int score { get; set; } = 200 + (10 * GameData.startingWave); // Score to be given when the boss is destroyed
     public override int health { get; set; } = 1000; 
     private int baseHealth = 1000; // Base health for the boss
     private float healthBarScale;

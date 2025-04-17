@@ -9,6 +9,10 @@ TagManager:
   - EasySpawner
   - MediumSpawner
   - HardSpawner
+  - FirstText
+  - SecondText
+  - ThirdText
+  - CurrentHigh
   layers:
   - Default
   - TransparentFX
