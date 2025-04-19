@@ -21,6 +21,7 @@ public class LogicScript : MonoBehaviour
     public AudioClip bossSoundtrack;
     public AudioClip chanceBoxSound;
     public AudioClip alienDeathSound;
+    public AudioClip alternateDeathSound;
     [SerializeField] public TextMeshProUGUI timerText;
     float elapsedTime;
     public GameObject bossPrefab;
@@ -55,6 +56,8 @@ public class LogicScript : MonoBehaviour
         ("Star", 10),
         ("Time", 10)
     };
+
+    public AudioClip[] powerUpSounds;
 
     public int powerUpIndex = -1;
     public LuckyBoxSpawner luckyBoxSpawner;
@@ -307,7 +310,19 @@ public class LogicScript : MonoBehaviour
             laser.SetActive(true);
         {
         }
+        StartCoroutine(PlayPowerUpSoundAfterChanceBox());
+        
         StartCoroutine(DeactivatePowerUpBanner(duration));
+    }
+    
+    private IEnumerator PlayPowerUpSoundAfterChanceBox()
+    {
+        yield return new WaitWhile(() => ontopSrc.isPlaying);
+        ontopSrc.Stop();
+        ontopSrc.volume = 0.8f;
+        ontopSrc.loop = false;
+        ontopSrc.clip = powerUpSounds[powerUpIndex];
+        ontopSrc.Play();
     }
 
     private IEnumerator DeactivatePowerUpBanner(float duration)
@@ -326,7 +341,13 @@ public class LogicScript : MonoBehaviour
     public void alienDeath()
     {
         AudioSource src = audioSources[currentAudioSourceIndex];
-        src.clip = alienDeathSound;
+        if (powerUpIndex == 3)
+        {
+            src.clip = alternateDeathSound;
+        } else 
+        {
+            src.clip = alienDeathSound;
+        }
         src.volume = 0.2f;
         src.Play();
         currentAudioSourceIndex = (currentAudioSourceIndex + 1) % audioSources.Length;

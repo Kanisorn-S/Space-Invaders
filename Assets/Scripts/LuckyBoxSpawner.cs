@@ -5,10 +5,10 @@ public class LuckyBoxSpawner : MonoBehaviour
     public GameObject luckyBoxPrefab; // Reference to the lucky box prefab
     public float spawnRate = 15f; // Rate at which lucky boxes are spawned
     private float timer = 0f;
-    public float minX = -10f;
-    public float maxX = 10f;
+    public float minX = -7f;
+    public float maxX = 7f;
     public float minY = 0f;
-    public float maxY = 10f;
+    public float maxY = 7f;
     private int spawnCount = 0; // Number of lucky boxes spawned
     public int maxSpawnCount = 3; // Maximum number of lucky boxes to spawn
     public int baseSpawnCount = 3; // Base number of lucky boxes to spawn

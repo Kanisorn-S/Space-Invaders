@@ -1387,6 +1387,7 @@ MonoBehaviour:
   bossSoundtrack: {fileID: 8300000, guid: 8a89ac07f74047741b21eff452d96a63, type: 3}
   chanceBoxSound: {fileID: 8300000, guid: 3b4074a68cd52ec4d9dbeb35c16912df, type: 3}
   alienDeathSound: {fileID: 8300000, guid: 53b83d02b464fb545bdaf39fa3942d54, type: 3}
+  alternateDeathSound: {fileID: 8300000, guid: 2a8c0bef1320f0849a83fb613740dcae, type: 3}
   timerText: {fileID: 1871863466}
   bossPrefab: {fileID: 8119691424541879155, guid: e365c4ec59652e647a81f8ab29dcc871, type: 3}
   wave: 1
@@ -1402,6 +1403,12 @@ MonoBehaviour:
   - {fileID: 1369973469}
   waveText: {fileID: 467015804}
   waveNumberText: {fileID: 1300512122}
+  powerUpSounds:
+  - {fileID: 8300000, guid: 78ac86e02a60d7b4594ba8ce3b8efc53, type: 3}
+  - {fileID: 8300000, guid: 60c105adf1cfc0f41b6ac08148d9ec5c, type: 3}
+  - {fileID: 8300000, guid: 9e385b35d04d78c4b9336b540760e0bd, type: 3}
+  - {fileID: 8300000, guid: 7f1b36b0b9964734ba8ddfa59d9c50f4, type: 3}
+  - {fileID: 8300000, guid: 78c505fda5bb8464fa553e131ed31fd7, type: 3}
   powerUpIndex: -1
   luckyBoxSpawner: {fileID: 155604440}
   pauseMenu: {fileID: 1205746921}

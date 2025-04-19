@@ -5,10 +5,10 @@ public class BaseAlienSpawner : MonoBehaviour
     public GameObject alienPrefab; // Reference to the bullet prefab
     public float spawnRate = 5f; // Rate at which aliens are spawned
     private float timer = 0f;
-    public float minX = -10f;
-    public float maxX = 10f;
-    public float minY = 0f;
-    public float maxY = 10f;
+    public virtual float minX { get; set; } = -10f;
+    public virtual float maxX { get; set; } = 10f;
+    public virtual float minY { get; set; } = 0f;
+    public virtual float maxY { get; set; } = 10f;
     private int spawnCount = 0; // Number of aliens spawned
     public int maxSpawnCount = 2; // Maximum number of aliens to spawn
     public int baseSpawnCount = 2; // Base number of aliens to spawn
