@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject player; // Reference to the player GameObject
-    public Vector3 offset = new Vector3(0, 5, -7); // Offset from the player's position
+    public Vector3 offset = new Vector3(0, 7, 13); // Offset from the player's position
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

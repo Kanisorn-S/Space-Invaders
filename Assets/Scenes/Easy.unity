@@ -1206,13 +1206,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab43ea0f6af624b42ac309cad5ae03f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1202336312}
-  offset: {x: 0, y: 5, z: -7}
+  offset: {x: 0, y: 7, z: 13}
 --- !u!1 &566382244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,10 +2358,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 2849196959840423428, guid: e0ad2ca2486e5cf42871d5802f366e07, type: 3}
   spawnRate: 5
-  minX: -10
-  maxX: 10
-  minY: 0
-  maxY: 10
   maxSpawnCount: 2
   baseSpawnCount: 2
   logic: {fileID: 0}
@@ -2909,10 +2905,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 5381160136316989081, guid: fa5b0afceb1164c4fa57389d7c6a15ca, type: 3}
   spawnRate: 5
-  minX: -10
-  maxX: 10
-  minY: 0
-  maxY: 10
   maxSpawnCount: 2
   baseSpawnCount: 2
   logic: {fileID: 0}
@@ -2964,10 +2956,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alienPrefab: {fileID: 3117479936882336947, guid: 35a9a8295546a3640a3121f2e5d0d714, type: 3}
   spawnRate: 5
-  minX: -10
-  maxX: 10
-  minY: 0
-  maxY: 10
   maxSpawnCount: 2
   baseSpawnCount: 2
   logic: {fileID: 0}
