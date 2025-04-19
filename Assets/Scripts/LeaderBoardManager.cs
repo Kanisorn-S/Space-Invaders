@@ -13,6 +13,7 @@ public class LeaderBoardManager : MonoBehaviour
     private string databaseURL = "https://d-space-invaders-default-rtdb.asia-southeast1.firebasedatabase.app/"; 
     private const string usersNode = "users";
     public List<TextMeshProUGUI> leaderboardTexts; // UI elements to display leaderboard data
+    public List<TextMeshProUGUI> scoreTexts;
     [SerializeField] public TextMeshProUGUI currentHighText; // UI element to display current high score
 
     private void Awake()
@@ -40,9 +41,19 @@ public class LeaderBoardManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
     // Reassign references to the TMP Texts
-    leaderboardTexts[0] = GameObject.Find("FirstText")?.GetComponent<TextMeshProUGUI>();
-    leaderboardTexts[1] = GameObject.Find("SecondText")?.GetComponent<TextMeshProUGUI>();
-    leaderboardTexts[2] = GameObject.Find("ThirdText")?.GetComponent<TextMeshProUGUI>();
+    // leaderboardTexts[0] = GameObject.Find("FirstText")?.GetComponent<TextMeshProUGUI>();
+    // leaderboardTexts[1] = GameObject.Find("SecondText")?.GetComponent<TextMeshProUGUI>();
+    // leaderboardTexts[2] = GameObject.Find("ThirdText")?.GetComponent<TextMeshProUGUI>();
+    // scoreTexts[0] = GameObject.Find("FirstScore")?.GetComponent<TextMeshProUGUI>();
+    // scoreTexts[1] = GameObject.Find("SecondScore")?.GetComponent<TextMeshProUGUI>();
+    // scoreTexts[2] = GameObject.Find("ThirdScore")?.GetComponent<TextMeshProUGUI>();
+        leaderboardTexts[0] = GameObject.FindGameObjectWithTag("FirstText")?.GetComponent<TextMeshProUGUI>();
+        leaderboardTexts[1] = GameObject.FindGameObjectWithTag("SecondText")?.GetComponent<TextMeshProUGUI>();
+        leaderboardTexts[2] = GameObject.FindGameObjectWithTag("ThirdText")?.GetComponent<TextMeshProUGUI>();
+        scoreTexts[0] = GameObject.FindGameObjectWithTag("FirstScore")?.GetComponent<TextMeshProUGUI>();
+        scoreTexts[1] = GameObject.FindGameObjectWithTag("SecondScore")?.GetComponent<TextMeshProUGUI>();
+        scoreTexts[2] = GameObject.FindGameObjectWithTag("ThirdScore")?.GetComponent<TextMeshProUGUI>();
+        currentHighText = GameObject.FindGameObjectWithTag("CurrentHigh")?.GetComponent<TextMeshProUGUI>();
 
     }
     public void FetchLeaderboard()
@@ -50,6 +61,9 @@ public class LeaderBoardManager : MonoBehaviour
         leaderboardTexts[0] = GameObject.FindGameObjectWithTag("FirstText")?.GetComponent<TextMeshProUGUI>();
         leaderboardTexts[1] = GameObject.FindGameObjectWithTag("SecondText")?.GetComponent<TextMeshProUGUI>();
         leaderboardTexts[2] = GameObject.FindGameObjectWithTag("ThirdText")?.GetComponent<TextMeshProUGUI>();
+        scoreTexts[0] = GameObject.FindGameObjectWithTag("FirstScore")?.GetComponent<TextMeshProUGUI>();
+        scoreTexts[1] = GameObject.FindGameObjectWithTag("SecondScore")?.GetComponent<TextMeshProUGUI>();
+        scoreTexts[2] = GameObject.FindGameObjectWithTag("ThirdScore")?.GetComponent<TextMeshProUGUI>();
         currentHighText = GameObject.FindGameObjectWithTag("CurrentHigh")?.GetComponent<TextMeshProUGUI>();
         Debug.Log("Fetching leaderboard data...");
         Debug.Log(leaderboardTexts[0]);
@@ -149,7 +163,8 @@ public class LeaderBoardManager : MonoBehaviour
         for (int i = 0; i < Mathf.Min(3, topScores.Count); i++)
         {
             Debug.Log($"{i + 1}. {topScores[i].username} - {topScores[i].highscore}");
-            leaderboardTexts[i].text = $"{topScores[i].username}: {topScores[i].highscore} PTS"; // Update UI elements
+            leaderboardTexts[i].text = $"{topScores[i].username}"; // Update UI elements
+            scoreTexts[i].text = $"{topScores[i].highscore} PTS"; // Update UI elements
         }
 
         // Fetch current user's score

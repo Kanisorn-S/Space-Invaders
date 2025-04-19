@@ -13,6 +13,9 @@ TagManager:
   - SecondText
   - ThirdText
   - CurrentHigh
+  - FirstScore
+  - SecondScore
+  - ThirdScore
   layers:
   - Default
   - TransparentFX
