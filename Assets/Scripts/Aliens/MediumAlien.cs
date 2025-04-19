@@ -17,6 +17,7 @@ public class MediumAlien : AlienBase
         if (transform.position.z <= -5f && !LogicScript.isGameOver) // If the alien reaches the bottom of the screen
         {
             Debug.Log("Game Over! Alien reached the bottom.");
+            spawner.alienDeathCount++; // Increment the alien death count
             logic.gameOver();
             Destroy(gameObject); // Destroy the alien
         }
